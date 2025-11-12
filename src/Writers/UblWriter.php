@@ -125,11 +125,6 @@ class UblWriter extends AbstractWriter {
             $this->addTenderOrLotReferenceNode($xml, $invoice);
         }
 
-        // Despatch/Receipt/Originator references
-        $this->addDespatchReferenceNode($xml, $invoice);
-        $this->addReceiptReferenceNode($xml, $invoice);
-        $this->addOriginatorReferenceNode($xml, $invoice);
-
         // BT-12: Contract reference
         $contractReference = $invoice->getContractReference();
         if ($contractReference !== null) {
@@ -175,6 +170,9 @@ class UblWriter extends AbstractWriter {
         if ($delivery !== null) {
             $this->addDeliveryNode($xml, $delivery);
         }
+
+        // Despatch/Receipt/Originator references
+        $this->addDespatchReferenceNode($xml, $invoice);
 
         // Payment means nodes
         foreach ($invoice->getPayments() as $payment) {

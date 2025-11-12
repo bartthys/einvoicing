@@ -273,7 +273,7 @@ class Invoice {
     protected $lines = [];
     protected $despatchReference = null;
     protected $receiptReference = null;
-    protected $originatorReference = null;
+//    protected $originatorReference = null;
 
     use AllowanceOrChargeTrait;
     use AttachmentsTrait;
