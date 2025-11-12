@@ -271,6 +271,9 @@ class Invoice {
     protected $paymentTerms = null;
     /** @var InvoiceLine[] */
     protected $lines = [];
+    protected $despatchReference = null;
+    protected $receiptReference = null;
+    protected $originatorReference = null;
 
     use AllowanceOrChargeTrait;
     use AttachmentsTrait;
@@ -993,4 +996,64 @@ class Invoice {
     public function getTotals(): InvoiceTotals {
         return InvoiceTotals::fromInvoice($this);
     }
+
+    /**
+     * Get despatch reference (cac:DespatchDocumentReference/cbc:ID)
+     * @return string|null Despatch reference
+     */
+    public function getDespatchReference(): ?string {
+        return $this->despatchReference;
+    }
+
+
+    /**
+     * Set despatch reference (cac:DespatchDocumentReference/cbc:ID)
+     * @param  string|null $despatchReference Despatch reference
+     * @return self                           Invoice instance
+     */
+    public function setDespatchReference(?string $despatchReference): self {
+        $this->despatchReference = $despatchReference;
+        return $this;
+    }
+
+
+    /**
+     * Get receipt reference (cac:ReceiptDocumentReference/cbc:ID)
+     * @return string|null Receipt reference
+     */
+    public function getReceiptReference(): ?string {
+        return $this->receiptReference;
+    }
+
+
+    /**
+     * Set receipt reference (cac:ReceiptDocumentReference/cbc:ID)
+     * @param  string|null $receiptReference Receipt reference
+     * @return self                          Invoice instance
+     */
+    public function setReceiptReference(?string $receiptReference): self {
+        $this->receiptReference = $receiptReference;
+        return $this;
+    }
+
+
+    /**
+     * Get originator reference (cac:OriginatorDocumentReference/cbc:ID)
+     * @return string|null Originator reference
+     */
+    public function getOriginatorReference(): ?string {
+        return $this->originatorReference;
+    }
+
+
+    /**
+     * Set originator reference (cac:OriginatorDocumentReference/cbc:ID)
+     * @param  string|null $originatorReference Originator reference
+     * @return self                             Invoice instance
+     */
+    public function setOriginatorReference(?string $originatorReference): self {
+        $this->originatorReference = $originatorReference;
+        return $this;
+    }
+
 }

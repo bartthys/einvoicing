@@ -125,6 +125,11 @@ class UblWriter extends AbstractWriter {
             $this->addTenderOrLotReferenceNode($xml, $invoice);
         }
 
+        // Despatch/Receipt/Originator references
+        $this->addDespatchReferenceNode($xml, $invoice);
+        $this->addReceiptReferenceNode($xml, $invoice);
+        $this->addOriginatorReferenceNode($xml, $invoice);
+
         // BT-12: Contract reference
         $contractReference = $invoice->getContractReference();
         if ($contractReference !== null) {
@@ -1048,6 +1053,42 @@ class UblWriter extends AbstractWriter {
         $externalUrl = $attachment->getExternalUrl();
         if ($externalUrl !== null) {
             $attXml->add('cac:ExternalReference')->add('cbc:URI', $externalUrl);
+        }
+    }
+
+    /**
+     * Add despatch reference node (cac:DespatchDocumentReference/cbc:ID)
+     * @param UXML    $parent  Parent element
+     * @param Invoice $invoice Invoice instance
+     */
+    private function addDespatchReferenceNode(UXML $parent, Invoice $invoice) {
+        $despatchRef = $invoice->getDespatchReference();
+        if ($despatchRef !== null) {
+            $parent->add('cac:DespatchDocumentReference')->add('cbc:ID', $despatchRef);
+        }
+    }
+
+    /**
+     * Add receipt reference node (cac:ReceiptDocumentReference/cbc:ID)
+     * @param UXML    $parent  Parent element
+     * @param Invoice $invoice Invoice instance
+     */
+    private function addReceiptReferenceNode(UXML $parent, Invoice $invoice) {
+        $receiptRef = $invoice->getReceiptReference();
+        if ($receiptRef !== null) {
+            $parent->add('cac:ReceiptDocumentReference')->add('cbc:ID', $receiptRef);
+        }
+    }
+
+    /**
+     * Add originator reference node (cac:OriginatorDocumentReference/cbc:ID)
+     * @param UXML    $parent  Parent element
+     * @param Invoice $invoice Invoice instance
+     */
+    private function addOriginatorReferenceNode(UXML $parent, Invoice $invoice) {
+        $originatorRef = $invoice->getOriginatorReference();
+        if ($originatorRef !== null) {
+            $parent->add('cac:OriginatorDocumentReference')->add('cbc:ID', $originatorRef);
         }
     }
 }
