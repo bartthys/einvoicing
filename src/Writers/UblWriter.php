@@ -110,6 +110,9 @@ class UblWriter extends AbstractWriter {
         // Order reference node
         $this->addOrderReferenceNode($xml, $invoice);
 
+        // Despatch/Receipt/Originator references
+        $this->addDespatchReferenceNode($xml, $invoice);
+
         // BG-3: Preceding invoice reference
         foreach ($invoice->getPrecedingInvoiceReferences() as $invoiceReference) {
             $invoiceDocumentReferenceNode = $xml->add('cac:BillingReference')->add('cac:InvoiceDocumentReference');
@@ -170,9 +173,6 @@ class UblWriter extends AbstractWriter {
         if ($delivery !== null) {
             $this->addDeliveryNode($xml, $delivery);
         }
-
-        // Despatch/Receipt/Originator references
-        $this->addDespatchReferenceNode($xml, $invoice);
 
         // Payment means nodes
         foreach ($invoice->getPayments() as $payment) {
